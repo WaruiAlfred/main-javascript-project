@@ -14,7 +14,7 @@ const playRound = (playerSelection, computerSelection) => {
   const winnerDeclaration = (playOutcome, beater, beaten) =>
     `"You ${playOutcome}! ${beater} beats ${beaten}"`;
 
-  const tie = (selection) => `No winner! You both selected ${selection}`;
+  const tie = (selection) => `"No winner! You both selected ${selection}"`;
 
   switch (computerSelectionLowerCase) {
     // computerSelectionLowerCase === "rock"
@@ -26,7 +26,6 @@ const playRound = (playerSelection, computerSelection) => {
           computerSelectionLowerCase
         );
       }
-      break;
 
     case "rock":
       if (playerSelectionLowerCase === "scissors") {
@@ -36,7 +35,6 @@ const playRound = (playerSelection, computerSelection) => {
           playerSelectionLowerCase
         );
       }
-      break;
 
     case "rock":
       if (playerSelectionLowerCase === "rock")
@@ -52,7 +50,6 @@ const playRound = (playerSelection, computerSelection) => {
           playerSelectionLowerCase
         );
       }
-      break;
 
     case "paper":
       if (playerSelectionLowerCase === "scissors") {
@@ -62,10 +59,11 @@ const playRound = (playerSelection, computerSelection) => {
           computerSelectionLowerCase
         );
       }
-      break;
 
     case "paper":
-      if (playerSelectionLowerCase === "paper") return "Paper tie";
+      // return tie(playerSelectionLowerCase);
+      if (playerSelectionLowerCase === "paper")
+        return tie(playerSelectionLowerCase);
       break;
 
     // computerSelectionLowerCase === "scissors"
@@ -77,7 +75,6 @@ const playRound = (playerSelection, computerSelection) => {
           playerSelectionLowerCase
         );
       }
-      break;
 
     case "scissors":
       if (playerSelectionLowerCase === "rock") {
@@ -87,7 +84,6 @@ const playRound = (playerSelection, computerSelection) => {
           computerSelectionLowerCase
         );
       }
-      break;
 
     case "scissors":
       if (playerSelectionLowerCase === "scissors")
@@ -100,6 +96,6 @@ const playRound = (playerSelection, computerSelection) => {
   }
 };
 
-const playerSelection = "paper";
+const playerSelection = "scissors";
 const computerSelection = computerPlay();
 console.log(playRound(playerSelection, computerSelection));
