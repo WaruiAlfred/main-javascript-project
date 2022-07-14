@@ -61,7 +61,6 @@ const playRound = (playerSelection, computerSelection) => {
       }
 
     case "paper":
-      // return tie(playerSelectionLowerCase);
       if (playerSelectionLowerCase === "paper")
         return tie(playerSelectionLowerCase);
       break;
@@ -96,6 +95,37 @@ const playRound = (playerSelection, computerSelection) => {
   }
 };
 
-const playerSelection = "scissors";
-const computerSelection = computerPlay();
-console.log(playRound(playerSelection, computerSelection));
+// const playerSelection = "scissors";
+// const computerSelection = computerPlay();
+// console.log(playRound(playerSelection, computerSelection));
+
+const game = () => {
+  let computerScore = 0;
+  let playerScore = 0;
+
+  for (let i = 0; i < 5; i++) {
+    let playerSelection = prompt(
+      `Input your selection:"rock","paper","scissors".
+      ${5 - i} rounds remaining!
+      `
+    );
+    const computerSelection = computerPlay();
+    console.log(playRound(playerSelection, computerSelection));
+
+    const playResult = playRound(playerSelection, computerSelection);
+
+    if (playResult.includes("lose")) {
+      computerScore++;
+    } else if (playResult.includes("win!")) {
+      playerScore++;
+    }
+  }
+
+  if (computerScore > playerScore)
+    return `Computer wins! Total score - ${computerScore}`;
+  if (playerScore > computerScore)
+    return `Player wins! Total score - ${playerScore}`;
+  if (computerScore === playerScore) return "It is a tie!";
+};
+
+console.log(game());
