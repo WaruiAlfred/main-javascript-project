@@ -132,6 +132,7 @@ const game = () => {
       playerScore++;
     } else if (playResult.includes("Invalid")) {
       alert("Invalid option!Try again!");
+      i--;
     }
   }
 
