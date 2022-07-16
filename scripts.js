@@ -1,20 +1,41 @@
+//Global Variables and functions
+const options = ["rock", "paper", "scissors"];
+
+const winnerDeclaration = (playOutcome, beater, beaten) =>
+  `"You ${playOutcome}! ${beater} beats ${beaten}"`;
+
+const tie = (selection) => `"No winner! You both selected ${selection}"`;
+
+const promptUserForInput = (i) =>
+  prompt(
+    `Input your selection:"rock","paper","scissors".
+  ${5 - i} rounds remaining!
+  `
+  );
+
+const collectAndValidateUserInput = function (i) {
+  const computerSelection = computerPlay();
+  const playerSelection = promptUserForInput(i);
+  const lowerCasePlayerSelection = playerSelection.trim().toLowerCase();
+
+  if (options.includes(lowerCasePlayerSelection)) {
+    console.log(playRound(playerSelection, computerSelection));
+  } else {
+    return "Invalid option!Try again!";
+  }
+
+  return playRound(playerSelection, computerSelection);
+};
+
 // Computer play function that randomly returns a value in the options array
-const computerPlay = () => {
-  const options = ["Rock", "Paper", "Scissors"];
+const computerPlay = function () {
   let selectedOption = options[Math.floor(Math.random() * options.length)];
   return selectedOption;
 };
 
-// console.log(computerPlay());
-
 const playRound = (playerSelection, computerSelection) => {
   const playerSelectionLowerCase = playerSelection.toLowerCase();
   const computerSelectionLowerCase = computerSelection.toLowerCase();
-
-  const winnerDeclaration = (playOutcome, beater, beaten) =>
-    `"You ${playOutcome}! ${beater} beats ${beaten}"`;
-
-  const tie = (selection) => `"No winner! You both selected ${selection}"`;
 
   switch (computerSelectionLowerCase) {
     // computerSelectionLowerCase === "rock"
@@ -89,9 +110,8 @@ const playRound = (playerSelection, computerSelection) => {
         return tie(playerSelectionLowerCase);
       break;
 
-    // Player has not made a selection
     default:
-      return "Player has to make a selection to continue playing!";
+      return "An error occurred!";
   }
 };
 
@@ -104,20 +124,14 @@ const game = () => {
   let playerScore = 0;
 
   for (let i = 0; i < 5; i++) {
-    let playerSelection = prompt(
-      `Input your selection:"rock","paper","scissors".
-      ${5 - i} rounds remaining!
-      `
-    );
-    const computerSelection = computerPlay();
-    console.log(playRound(playerSelection, computerSelection));
-
-    const playResult = playRound(playerSelection, computerSelection);
+    const playResult = collectAndValidateUserInput(i);
 
     if (playResult.includes("lose")) {
       computerScore++;
     } else if (playResult.includes("win!")) {
       playerScore++;
+    } else if (playResult.includes("Invalid")) {
+      alert("Invalid option!Try again!");
     }
   }
 
